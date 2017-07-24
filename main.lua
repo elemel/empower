@@ -34,7 +34,7 @@ local function fbm3(
     return totalNoise / totalAmplitude
 end
 
--- http://love2d.org/wiki/HSL_color
+-- See: http://love2d.org/wiki/HSL_color
 local function toRgbaFromHsla(h, s, l, a)
     if s <= 0 then
         return l, l, l, a

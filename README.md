@@ -1,6 +1,6 @@
 # empower
 
-## Power diagrams in Lua
+Power diagrams in Lua
 
 ![Screenshot](screenshot.png)
 
