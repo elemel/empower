@@ -40,7 +40,7 @@ local function toRgbaFromHsla(h, s, l, a)
         return l, l, l, a
     end
 
-    h, s, l = h / 256 * 6, s / 255, l / 255
+    h, s, l = h * 6, s, l
     local c = (1 - math.abs(2 * l - 1)) * s
     local x = (1 - math.abs(h % 2 - 1)) * c
     local m, r, g, b = (l - 0.5 * c), 0, 0, 0
@@ -59,7 +59,7 @@ local function toRgbaFromHsla(h, s, l, a)
         r, g, b = c, 0, x
     end
 
-    return (r + m) * 255, (g + m) * 255, (b + m) * 255, a
+    return r + m, g + m, b + m, a
 end
 
 function love.load()
@@ -101,10 +101,10 @@ function love.update(dt)
         local index = diagram:addCircle(circle)
 
         if index then
-            local h = 255 * (hueMean + hueAmplitude * (2 * fbm3(hueFrequency * x, hueFrequency * y, hueSeed) - 1))
-            local s = 255 * (saturationMean + saturationAmplitude * (2 * fbm3(saturationFrequency * x, saturationFrequency * y, saturationSeed) - 1))
-            local l = 255 * (lightnessMean + lightnessAmplitude * (2 * fbm3(lightnessFrequency * x, lightnessFrequency * y, lightnessSeed) - 1))
-            local a = 255
+            local h = hueMean + hueAmplitude * (2 * fbm3(hueFrequency * x, hueFrequency * y, hueSeed) - 1)
+            local s = saturationMean + saturationAmplitude * (2 * fbm3(saturationFrequency * x, saturationFrequency * y, saturationSeed) - 1)
+            local l = lightnessMean + lightnessAmplitude * (2 * fbm3(lightnessFrequency * x, lightnessFrequency * y, lightnessSeed) - 1)
+            local a = 1
             local color = {toRgbaFromHsla(h, s, l, a)}
             colors[index] = color
         end
